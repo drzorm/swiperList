@@ -66,6 +66,26 @@
             <div class="content"></div>
             <div class="del"></div>
         </li>
+        <li class="swipeListLi">
+            <div class="content"></div>
+            <div class="del"></div>
+        </li>
+        <li class="swipeListLi">
+            <div class="content"></div>
+            <div class="del"></div>
+        </li>
+        <li class="swipeListLi">
+            <div class="content"></div>
+            <div class="del"></div>
+        </li>
+        <li class="swipeListLi">
+            <div class="content"></div>
+            <div class="del"></div>
+        </li>
+        <li class="swipeListLi">
+            <div class="content"></div>
+            <div class="del"></div>
+        </li>
     </ul>
 </body>
 <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
@@ -74,7 +94,10 @@
 $(function() {
     $(".swipeListLi").swipe({
         swipeLeft: slideLeft,
-        swipeRight: slideRight
+        swipeRight: slideRight,
+        triggerOnTouchEnd:true,
+        threshold:75,
+        allowPageScroll:"auto"
     });
 
     function slideLeft(e) {
