@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0,minimum-scale=1.0, user-scalable=no">
+    <title></title>
+    <style type="text/css">
+    html,
+    body {
+        padding: 0;
+        margin: 0;
+        overflow: hidden;
+        -webkit-overflow-scrolling: touch; ;
+    }
+    /*--------------------*/
+    
+    .swipeList {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        height: 400px;
+        overflow-x: hidden;
+    }
+    
+    .swipeList li.swipeListLi {
+        float: left;
+        margin-bottom: 1px;
+        width: 100%;
+        height: 60px;
+        background-color: #abf;
+        /*overflow: hidden;*/
+    }
+    
+    .swipeList .content {
+        float: left;
+        height: 60px;
+        width: 80%;
+    }
+    
+    .swipeList .del {
+        display: none;
+        float: left;
+        width: 20%;
+        height: 60px;
+        background-color: #F55;
+    }
+    /*--------------------*/
+    @-webkit-keyframes fadeInRightBig {
+      from {
+        opacity: 0;
+        -webkit-transform: translate3d(100px, 0, 0);
+        transform: translate3d(100px, 0, 0);
+      }
+
+      to {
+        opacity: 1;
+        -webkit-transform: none;
+        transform: none;
+      }
+    }
+
+    @keyframes fadeInRightBig {
+      from {
+        opacity: 0;
+        -webkit-transform: translate3d(100px, 0, 0);
+        transform: translate3d(100px, 0, 0);
+      }
+
+      to {
+        opacity: 1;
+        -webkit-transform: none;
+        transform: none;
+      }
+    }
+    .fadeInRightBig {
+        -webkit-animation-duration: 0.3s;
+        animation-duration: 0.3s;
+        -webkit-animation-fill-mode: both;
+        animation-fill-mode: both;
+        -webkit-animation-name: fadeInRightBig;
+        animation-name: fadeInRightBig;
+    }
+    </style>
+</head>
+
+<body>
+    <ul class="swipeList">
+        <li class="swipeListLi">
+            <div class="content">这里是内容</div>
+            <div class="del">删除</div>
+        </li>
+        <li class="swipeListLi">
+            <div class="content">这里是内容</div>
+            <div class="del">删除</div>
+        </li>
+        <li class="swipeListLi">
+            <div class="content">这里是内容</div>
+            <div class="del">删除</div>
+        </li>
+        <li class="swipeListLi">
+            <div class="content">这里是内容</div>
+            <div class="del">删除</div>
+        </li>
+        <li class="swipeListLi">
+            <div class="content">这里是内容</div>
+            <div class="del">删除</div>
+        </li>
+        <li class="swipeListLi">
+            <div class="content">这里是内容</div>
+            <div class="del">删除</div>
+        </li>
+        <li class="swipeListLi">
+            <div class="content">这里是内容</div>
+            <div class="del">删除</div>
+        </li>
+        <li class="swipeListLi">
+            <div class="content">这里是内容</div>
+            <div class="del">删除</div>
+        </li>
+        <li class="swipeListLi">
+            <div class="content">这里是内容</div>
+            <div class="del">删除</div>
+        </li>
+        <li class="swipeListLi">
+            <div class="content">这里是内容</div>
+            <div class="del">删除</div>
+        </li>
+    </ul>
+</body>
+<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<!-- <script src="http://172.16.9.47:8080/target/target-script-min.js#anonymous"></script> -->
+<script>
+$(function() {
+    function prevent_default(e) {
+        e.preventDefault();
+    }
+    function disable_scroll() {
+        $(document).on('touchmove', prevent_default);
+    }
+    function enable_scroll() {
+        $(document).unbind('touchmove', prevent_default)
+    }
+    var pageX;
+    var delWidth = $('.swipeListLi .del').eq(0).outerWidth();
+    $('.swipeListLi')
+        .on('touchstart', function(e) {
+            $('.swipeListOn .del').hide();
+            $(e.currentTarget).addClass('swipeListOn')
+            pageX = e.originalEvent.targetTouches[0].pageX
+        })
+        .on('touchmove', function(e) {
+            var change = e.originalEvent.targetTouches[0].pageX - pageX
+            if (change < -delWidth/2) {
+                $(e.currentTarget).find('.del').addClass('fadeInRightBig').show();
+                disable_scroll();
+            } else {
+                enable_scroll();
+            }
+        });
+    $('.swipeListLi .del').on('touchend', function(e) {
+        e.preventDefault()
+        $(this).parents('li').slideUp('fast', function() {
+            $(this).remove();
+        })
+    })
+
+});
+</script>
+
+</html>
